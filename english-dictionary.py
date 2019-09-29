@@ -8,6 +8,10 @@ def translate (w):
     #lowercase will help in tackling input mix case letters
     if w in data:
         return data[w]   #If match is found, it return the word
+    elif w.title() in data:  #If user has entered "delhi or DELHI", this will check for "Delhi"
+        return data[w.title()]
+    elif w.upper() in data:  # in case user enters acronyms like USA or NATO
+        return data[w.upper()]
     elif len(get_close_matches(w, data.keys())) > 0:   #If there are similar words, it will be returned
         yesno = input("Did you mean - %s - instead? Enter Y if yes, or N if no: " % get_close_matches(w, data.keys())[0])   #Using first similar word from aboe step
         yesno = yesno.upper()  #capital or small case Yes [y] or No [N}
@@ -22,4 +26,10 @@ def translate (w):
 
 word = input ("Enter word: ")
 
-print (translate (word))
+output= (translate (word))  #It is list of definitions
+
+if type(output) == list:
+    for item in output:
+        print (item)
+else:
+    print (output)
